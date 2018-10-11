@@ -1,6 +1,8 @@
 package com.dream.crawl.util;
 
 import com.dream.crawl.page.Page;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -9,9 +11,8 @@ import java.io.IOException;
 
 /*  本类主要是 下载那些已经访问过的文件*/
 public class FileTool {
-
+    @Value("${defaultFilePath}")
     private static String dirPath;
-
 
     /**
      * getMethod.getResponseHeader("Content-Type").getValue()
@@ -36,13 +37,12 @@ public class FileTool {
      *  生成目录
      * */
     private static void mkdir() {
-        if (dirPath == null) {
-//            dirPath = Class.class.getClass().getResource("/").getPath() + "temp\\";
+        if (StringUtils.isBlank(dirPath)) {
             dirPath = "./files/";
         }
         File fileDir = new File(dirPath);
         if (!fileDir.exists()) {
-            fileDir.mkdir();
+            fileDir.mkdirs();
         }
     }
 

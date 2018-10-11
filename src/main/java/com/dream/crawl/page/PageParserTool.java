@@ -10,7 +10,6 @@ import java.util.Set;
 
 public class PageParserTool {
 
-
     /* 通过选择器来选取页面的 */
     public static Elements select(Page page , String cssSelector) {
         return page.getDoc().select(cssSelector);
@@ -19,7 +18,7 @@ public class PageParserTool {
     /*
      *  通过css选择器来得到指定元素;
      *
-     *  */
+     * */
     public static Element select(Page page , String cssSelector, int index) {
         Elements eles = select(page , cssSelector);
         int realIndex = index;
