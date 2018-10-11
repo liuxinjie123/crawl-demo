@@ -23,8 +23,8 @@ public class MyCrawler {
      * @return
      */
     private void initCrawlerWithSeeds(List<String> seeds) {
-        for (int i = 0; i < seeds.size(); i++){
-            Links.addUnvisitedUrlQueue(seeds.get(i));
+        for (String seed : seeds){
+            Links.addUnvisitedUrlQueue(seed);
         }
     }
 
@@ -53,7 +53,7 @@ public class MyCrawler {
         };
 
         //循环条件：待抓取的链接不空且抓取的网页不多于 1000
-        while (!Links.unVisitedUrlQueueIsEmpty()  && Links.getVisitedUrlNum() <= 1000) {
+        while (!Links.unVisitedUrlQueueIsEmpty()  && Links.getVisitedUrlNum() <= 10000) {
 
             //先从待访问的序列中取出第一个；
             String visitUrl = (String) Links.removeHeadOfUnVisitedUrlQueue();
