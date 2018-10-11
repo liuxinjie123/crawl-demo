@@ -8,9 +8,13 @@ import com.dream.crawl.page.RequestAndResponseTool;
 import com.dream.crawl.util.FileTool;
 import org.jsoup.select.Elements;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 public class MyCrawler {
+
+    private static List<String> seedList = Arrays.asList("http://www.baidu.com", "http://www.yimei180.com", "http://www.haowu.com");
 
     /**
      * 使用种子初始化 URL 队列
@@ -18,9 +22,9 @@ public class MyCrawler {
      * @param seeds 种子 URL
      * @return
      */
-    private void initCrawlerWithSeeds(String[] seeds) {
-        for (int i = 0; i < seeds.length; i++){
-            Links.addUnvisitedUrlQueue(seeds[i]);
+    private void initCrawlerWithSeeds(List<String> seeds) {
+        for (int i = 0; i < seeds.size(); i++){
+            Links.addUnvisitedUrlQueue(seeds.get(i));
         }
     }
 
@@ -31,7 +35,7 @@ public class MyCrawler {
      * @param seeds
      * @return
      */
-    public void crawling(String[] seeds) {
+    public void crawling(List<String> seeds) {
 
         //初始化 URL 队列
         initCrawlerWithSeeds(seeds);
@@ -39,10 +43,12 @@ public class MyCrawler {
         //定义过滤器，提取以 http://www.baidu.com 开头的链接
         LinkFilter filter = new LinkFilter() {
             public boolean accept(String url) {
-                if (url.startsWith("http://www.baidu.com") || url.startsWith("http://www.yimei180.com"))
-                    return true;
-                else
-                    return false;
+                for (String seed : seedList) {
+                    if (url.startsWith(seed)) {
+                        return true;
+                    }
+                }
+                return false;
             }
         };
 
@@ -84,6 +90,6 @@ public class MyCrawler {
     //main 方法入口
     public static void main(String[] args) {
         MyCrawler crawler = new MyCrawler();
-        crawler.crawling(new String[]{"http://www.baidu.com", "http://www.yimei180.com"});
+        crawler.crawling(seedList);
     }
 }

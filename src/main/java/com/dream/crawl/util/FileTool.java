@@ -37,7 +37,8 @@ public class FileTool {
      * */
     private static void mkdir() {
         if (dirPath == null) {
-            dirPath = Class.class.getClass().getResource("/").getPath() + "temp\\";
+//            dirPath = Class.class.getClass().getResource("/").getPath() + "temp\\";
+            dirPath = "./files/";
         }
         File fileDir = new File(dirPath);
         if (!fileDir.exists()) {
@@ -51,8 +52,8 @@ public class FileTool {
 
     public static void saveToLocal(Page page) {
         mkdir();
-        String fileName =  getFileNameByUrl(page.getUrl(), page.getContentType()) ;
-        String filePath = dirPath + fileName ;
+        String fileName = getFileNameByUrl(page.getUrl(), page.getContentType());
+        String filePath = dirPath + fileName;
         byte[] data = page.getContent();
         try {
             //Files.lines(Paths.get("D:\\jd.txt"), StandardCharsets.UTF_8).forEach(System.out::println);
@@ -62,7 +63,7 @@ public class FileTool {
             }
             out.flush();
             out.close();
-            System.out.println("文件："+ fileName + "已经被存储在"+ filePath  );
+            System.out.println("文件：" + fileName + "已经被存储在" + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
